@@ -1,7 +1,42 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
+    "homeTitle": "Obtén un préstamo para un nuevo smartphone",
+    "homeSubtitle": "Ingresa tu nombre completo y número de ID para comenzar.",
+    "homeFullNameLabel": "Nombre completo",
+    "homeIdNumberLabel": "Número de ID",
+    "homeAge": "Edad",
+    "homeInvalidAge": "Debes tener entre {min} y {max} años para solicitar.",
+     "@homeInvalidAge": {
+         "placeholders": {
+           "min": {
+             "description": "Edad mínima requerida para solicitar el préstamo",
+             "type": "int"
+           },
+              "max": {
+                 "description": "Edad máxima permitida para solicitar el préstamo",
+                 "type": "int"
+              }
+         }
+       },
+    "homeApplicationExists": "Ya existe una aplicación para este número de ID",
+    "incomeTitle": "2. Ingresos mensuales",
+    "incomeSubtitle": "Por favor, ingresa tus ingresos mensuales y carga prueba de ingresos (como un recibo de sueldo, extracto bancario o certificado fiscal) para continuar.",
+    "incomeMonthlyIncomeLabel": "Ingresos mensuales en rands",
+    "incomeProofOfIncomeLabel": "Cargue prueba de ingresos",
+    "incomeProofOfIncomeHint": "Por favor cargue un documento de prueba de ingresos válido (formatos aceptados: PDF, JPG, PNG).",
+    "incomeProofOfIncomeError": "Se requiere prueba de ingresos",
+    "phonesTitle": "3. Elige tu teléfono",
+    "phonesSubtitle": "Elige el smartphone que deseas.",
+    "phoneDetailsTitle": "3. Elige tu teléfono",
+    "phoneDetailsSubtitle": "Si estás satisfecho con el teléfono que has seleccionado, haz clic en 'Enviar' para completar tu aplicación o vuelve atrás para elegir un teléfono diferente.",
+    "phoneDetailsCashPrice": "Precio en efectivo",
+    "phoneDetailsYouPay": "Tú pagas",
+    "phoneDetailsDeposit": "Depósito (por adelantado)",
+    "phoneDetailsDailyPayment": "Pago diario (durante un año)",
+    "buttonContinue": "Continuar",
+    "buttonSubmit": "Enviar",
+    "applicationSuccessTitle": "¡Aplicación Enviada Exitosamente!",
+    "applicationSuccessMessage": "Gracias por solicitar un préstamo para smartphone. Tu aplicación ha sido recibida y será revisada en breve.",
+    "applicationErrorTitle": "Error",
+    "applicationMissingFieldsError": "Por favor, asegúrate de que toda la información requerida esté completa antes de enviar."
 }

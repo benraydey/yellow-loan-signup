@@ -1,0 +1,28 @@
+name: formy
+description: Helps you to easily create and validate form inputs of any type and extract their values
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  age_calculator: ^1.0.0
+  bloc: ^9.1.0
+  equatable: ^2.0.7
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  intl: ^0.20.2
+  provider: ^6.1.5+1
+  form_utils:
+    path: ../form_utils
+  drop_down_search_field: ^1.2.2
+  mask_text_input_formatter: ^2.9.0
+  pinput: ^5.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^10.0.0
