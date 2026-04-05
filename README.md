@@ -55,11 +55,13 @@ Duplicate SA ID numbers are rejected both in the frontend and at the database le
 yellow-loan-signup/
 ├── README.md              ← you are here
 ├── frontend/
-│   ├── README.md          ← Flutter setup & development guide
-│   └── .gitkeep
+│   └── README.md          ← Flutter setup & development guide
 └── supabase/
-    ├── README.md          ← Supabase setup, schema, and storage guide
-    └── .gitkeep
+    ├── migrations/
+    │   ├── 00001_create_phones.sql
+    │   ├── 00002_create_applications.sql
+    │   └── 00003_enable_rls_and_policies.sql
+    └── README.md          ← Supabase setup, schema, and storage guide
 ```
 
 Frontend code lives in `frontend/`; database schema, migrations, and Supabase configuration live in `supabase/`.
@@ -78,17 +80,17 @@ Seeded reference data — one row per handset option.
 | Column | Type | Notes |
 |--------|------|-------|
 | `id` | `uuid` | Primary key, default `gen_random_uuid()` |
-| `name` | `text` | Handset name/model |
-| `cash_price_cents` | `integer` | Cash price in cents |
-| `deposit_percent` | `numeric(5,4)` | e.g. `0.2000` for 20% |
-| `interest_rate` | `numeric(5,4)` | e.g. `0.2500` for 25% |
-| `created_at` | `timestamptz` | Default `now()` |
+| `image` | `text NOT NULL` | Image filename in the `phone-images` bucket (e.g. `galaxy_a24.png`) |
+| `title` | `text NOT NULL` | Handset display name (e.g. `Samsung Galaxy A24`) |
+| `cash_price` | `integer NOT NULL` | Cash price in cents (e.g. `3799000` = R37 990.00) |
+| `deposit_percent` | `numeric NOT NULL` | Deposit as a decimal (e.g. `0.15` = 15%) |
+| `interest_rate` | `numeric NOT NULL` | Interest rate as a decimal (e.g. `0.21` = 21%) |
 
 **Derived / computed fields** (calculated in the UI and displayed to the user, not stored):
 
 | Field | Formula |
 |-------|---------|
-| `loan_principal` | `cash_price_cents × (1 − deposit_percent)` |
+| `loan_principal` | `cash_price × (1 − deposit_percent)` |
 | `loan_amount` | `loan_principal × (1 + interest_rate)` |
 | `daily_price` | `loan_amount ÷ 360` |
 
@@ -98,42 +100,36 @@ One row per submitted application.
 
 | Column | Type | Notes |
 |--------|------|-------|
-| `id` | `uuid` | Primary key, default `gen_random_uuid()` — also used as the storage key for the proof document |
+| `id` | `uuid` | Primary key, default `gen_random_uuid()` |
 | `full_name` | `text NOT NULL` | Applicant's full name |
-| `sa_id_number` | `text NOT NULL UNIQUE` | 13-digit South African ID — **unique constraint** prevents duplicates |
-| `date_of_birth` | `date NOT NULL` | Derived from SA ID and confirmed before submission |
-| `income_monthly_cents` | `integer NOT NULL CHECK (income_monthly_cents > 0)` | Monthly income in cents |
-| `proof_path` | `text NOT NULL` | Supabase Storage object path, e.g. `proofs/<application_id>/<filename>` |
-| `proof_mime` | `text NOT NULL` | MIME type of the uploaded file (`image/jpeg`, `image/png`, `application/pdf`, etc.) |
+| `id_number` | `text NOT NULL UNIQUE` | South African ID number — **unique constraint** prevents duplicate applications |
+| `monthly_income` | `integer NOT NULL` | Monthly income in cents |
+| `proof_document` | `text NOT NULL` | Filename of the uploaded file in the `proof-documents` bucket |
 | `phone_id` | `uuid NOT NULL REFERENCES phones(id)` | Selected handset |
-| `created_at` | `timestamptz` | Default `now()` |
+
+**Relationships:** `applications.phone_id` → `phones.id`
 
 **Constraints summary:**
 
-- `UNIQUE(sa_id_number)` — the database is the final authority on duplicate applications.
-- `CHECK(income_monthly_cents > 0)` — basic sanity guard.
+- `UNIQUE(id_number)` — the database is the final authority on duplicate applications.
 - `NOT NULL` on all user-supplied fields.
 
 ---
 
 ## File Upload Design
 
-The proof-of-income document is uploaded **before** the application record is created, using a pre-generated application ID as the storage key. This ensures the storage path is always traceable to an application.
+The proof-of-income document is uploaded to the **`proof-documents`** Supabase Storage bucket. The stored filename is saved in `applications.proof_document`.
 
 **Flow:**
 
-1. **Generate** a UUID client-side (`applicationId = uuid()`).
-2. **Upload** the file to Supabase Storage at path `proofs/<applicationId>/<filename>`.
-3. **Store** the returned path in the form state (`proof_path`) along with the MIME type.
-4. **Submit** the application record to the `applications` table, including `id = applicationId` and `proof_path`.
-
-**Why upload-first?**
-
-- Avoids orphaned storage objects that aren't linked to any application row.
-- Lets the user confirm the upload succeeded before they commit the form.
-- The application `id` is deterministic at insert time (we supply the UUID), so the storage object and database row are always in sync.
+1. **Pick** a proof-of-income file (image or PDF) in the app.
+2. **Upload** the file to the `proof-documents` bucket.
+3. **Store** the returned filename in the form state (`proof_document`).
+4. **Submit** the application record to the `applications` table, including `proof_document`.
 
 **Accepted file types:** `image/*` and `application/pdf` only. All other MIME types are rejected with a clear message.
+
+**Phone images** are stored in the **`phone-images`** bucket. Each `phones` row references the image by filename in the `image` column. Both buckets are currently set to **public**.
 
 ---
 
@@ -158,8 +154,11 @@ Environment variables (Supabase credentials) are configured via a `.env` file or
 > See [`supabase/README.md`](supabase/README.md) for full details.
 
 1. Create a free project at [supabase.com](https://supabase.com).
-2. Run the SQL migrations in `supabase/migrations/` via the Supabase SQL Editor or the Supabase CLI.
-3. Create a Storage bucket named `proofs` (public or with appropriate policies).
+2. Run the SQL migrations in `supabase/migrations/` via the Supabase SQL Editor (in numbered order):
+   - `00001_create_phones.sql`
+   - `00002_create_applications.sql`
+   - `00003_enable_rls_and_policies.sql`
+3. Create two Storage buckets: **`phone-images`** and **`proof-documents`** (both public).
 4. Copy the project URL and anon key into your frontend environment configuration.
 
 **Local development** with the Supabase CLI:
@@ -190,6 +189,7 @@ Steps:
 
 ## Known Limitations / Demo Notes
 
-- **Row-level security (RLS) is disabled** for demo simplicity. In production, RLS policies and proper authentication would be required to restrict read/write access.
+- **Row-level security (RLS) is enabled** on both tables. Public insert and select policies are in place for `applications`; public select is in place for `phones`. No authentication is required for this demo.
+- **Storage buckets are public** — `phone-images` and `proof-documents` are both accessible via public URL. In a production deployment, buckets should be set to private and files accessed via signed URLs.
 - **No server-side validation** beyond database constraints. A production system would add a Supabase Edge Function (or equivalent) for authoritative SA ID and age validation.
 - **No authentication** — the application is intentionally anonymous for this take-home demo.
