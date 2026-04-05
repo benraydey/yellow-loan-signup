@@ -23,6 +23,6 @@
      "incomeMonthlyIncomeLabel": "Monthly income in rands",
      "incomeProofOfIncomeLabel": "Upload proof of income",
      "incomeProofOfIncomeHint": "Please upload a valid proof of income document (accepted formats: PDF, JPG, PNG).",
-     "incomeProofOfIncomeError": "Invalid document type (accepted formats: PDF, JPG, PNG).",
-    "buttonContinue": "Continue"
+     "incomeProofOfIncomeError": "Proof of income is required",
+     "buttonContinue": "Continue"
 }

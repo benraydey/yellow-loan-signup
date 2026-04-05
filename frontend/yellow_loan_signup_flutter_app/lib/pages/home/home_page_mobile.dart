@@ -14,29 +14,23 @@ class HomePageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final age = calculateAgeFromIdNumber(context);
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: 350,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 32),
-                const HomeTitle(),
-                const SizedBox(height: 8),
-                const HomeSubtitle(),
-                const SizedBox(height: 24),
-                const HomeFullNameField(),
-                const SizedBox(height: 8),
-                const HomeIdNumberField(),
-                if (age != null) HomeAgeText(age: age),
-                const SizedBox(height: 16),
-                const HomeContinueButton(),
-              ],
-            ),
-          ),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          const HomeTitle(),
+          const SizedBox(height: 8),
+          const HomeSubtitle(),
+          const SizedBox(height: 24),
+          const HomeFullNameField(),
+          const SizedBox(height: 8),
+          const HomeIdNumberField(),
+          if (age != null) HomeAgeText(age: age),
+          const SizedBox(height: 16),
+          const HomeContinueButton(),
+        ],
       ),
     );
   }

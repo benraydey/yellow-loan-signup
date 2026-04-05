@@ -14,28 +14,24 @@ class HomePageDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final age = calculateAgeFromIdNumber(context);
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: formWidth,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 32),
-                const HomeTitle(),
-                const SizedBox(height: 8),
-                const HomeSubtitle(),
-                const SizedBox(height: 24),
-                const HomeFullNameField(),
-                const SizedBox(height: 8),
-                const HomeIdNumberField(),
-                if (age != null) HomeAgeText(age: age),
-                const SizedBox(height: 16),
-                const HomeContinueButton(),
-              ],
-            ),
-          ),
+    return Center(
+      child: SizedBox(
+        width: formWidth,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 32),
+            const HomeTitle(),
+            const SizedBox(height: 8),
+            const HomeSubtitle(),
+            const SizedBox(height: 24),
+            const HomeFullNameField(),
+            const SizedBox(height: 8),
+            const HomeIdNumberField(),
+            if (age != null) HomeAgeText(age: age),
+            const SizedBox(height: 16),
+            const HomeContinueButton(),
+          ],
         ),
       ),
     );

@@ -108,7 +108,10 @@ class AppPrimaryButton extends StatelessWidget {
                           backgroundColor: backgroundColorResolved,
                           foregroundColor: Theme.of(
                             context,
-                          ).buttonTheme.colorScheme!.onPrimary,
+                          ).colorScheme.onPrimary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                         child: Container(), // Empty container
                       ),
@@ -127,8 +130,11 @@ class AppPrimaryButton extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       foregroundColor: Theme.of(
                         context,
-                      ).buttonTheme.colorScheme!.onPrimary,
+                      ).colorScheme.onPrimary,
                       shadowColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     child: Padding(
                       padding: padding,
@@ -166,7 +172,10 @@ class AppPrimaryButton extends StatelessWidget {
                   elevation: elevation,
                   foregroundColor: Theme.of(
                     context,
-                  ).buttonTheme.colorScheme!.onPrimary,
+                  ).colorScheme.onPrimary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: Padding(
                   padding: padding,

@@ -5,33 +5,42 @@ import 'package:yellow_loan_signup_flutter_app/widgets/income_monthly_income_fie
 import 'package:yellow_loan_signup_flutter_app/widgets/income_subtitle.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_title.dart';
 
-class IncomePageMobile extends StatelessWidget {
+class IncomePageMobile extends StatefulWidget {
   const IncomePageMobile({super.key});
 
   @override
+  State<IncomePageMobile> createState() => _IncomePageMobileState();
+}
+
+class _IncomePageMobileState extends State<IncomePageMobile> {
+  final fileUploadKey = GlobalKey<State>();
+  bool _showFileUploadError = false;
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: 350,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 32),
-                IncomeTitle(),
-                SizedBox(height: 8),
-                IncomeSubtitle(),
-                SizedBox(height: 24),
-                IncomeMonthlyIncomeField(),
-                SizedBox(height: 16),
-                IncomeFileUploadInput(),
-                SizedBox(height: 16),
-                IncomeContinueButton(),
-              ],
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 32),
+          const IncomeTitle(),
+          const SizedBox(height: 8),
+          const IncomeSubtitle(),
+          const SizedBox(height: 24),
+          const IncomeMonthlyIncomeField(),
+          const SizedBox(height: 16),
+          IncomeFileUploadInput(
+            key: fileUploadKey,
+            showError: _showFileUploadError,
           ),
-        ),
+          const SizedBox(height: 16),
+          IncomeContinueButton(
+            fileUploadKey: fileUploadKey,
+            onFileUploadError: (show) =>
+                setState(() => _showFileUploadError = show),
+          ),
+        ],
       ),
     );
   }

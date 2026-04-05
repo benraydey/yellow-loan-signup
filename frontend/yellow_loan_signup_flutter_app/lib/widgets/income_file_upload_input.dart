@@ -10,80 +10,117 @@ const mediumWidthSpacing = SizedBox(width: 12);
 const extraSmallSpacing = SizedBox(height: 4);
 
 class IncomeFileUploadInput extends StatelessWidget {
-  const IncomeFileUploadInput({super.key});
+  final bool showError;
+
+  const IncomeFileUploadInput({
+    super.key,
+    this.showError = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IncomeUploadFileBloc, IncomeUploadFileState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 56,
-              child: Material(
-                color: Colors.transparent,
-                child: ListTile(
-                  titleAlignment: ListTileTitleAlignment.center,
-                  minVerticalPadding: 0,
-                  shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  contentPadding: const EdgeInsets.only(left: 16),
-                  onTap: state.status == IncomeUploadFileStatus.initial
-                      ? () => _pickFile(context)
-                      : null,
-                  title: Center(
-                    child: Row(
-                      children: [
-                        ..._leadingWidgets(context, state.status),
-                        Expanded(
-                          child: _buildTextPanel(context, state),
-                        ),
-                        if (state.status == IncomeUploadFileStatus.initial)
-                          const SizedBox(
-                            width: 48,
-                            height: 48,
-                            child: Icon(Icons.folder_outlined, size: 24),
-                          )
-                        else
-                          Container(
-                            width: 48,
-                            height: 48,
-                            margin: const EdgeInsets.only(right: 12),
-                            child: IconButton(
-                              onPressed: () => context
-                                  .read<IncomeUploadFileBloc>()
-                                  .add(const IncomeDeleteFile()),
-                              icon: const Icon(Icons.cancel_outlined, size: 24),
+    return BlocListener<IncomeUploadFileBloc, IncomeUploadFileState>(
+      listener: _onUploadStateChanged,
+      child: BlocBuilder<IncomeUploadFileBloc, IncomeUploadFileState>(
+        builder: (context, state) {
+          final isInvalid =
+              showError &&
+              (state.status != IncomeUploadFileStatus.success ||
+                  state.fileId == null);
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 56,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: isInvalid
+                            ? Theme.of(context).colorScheme.error
+                            : Colors.grey,
+                        width: isInvalid ? 2 : 1,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: ListTile(
+                      titleAlignment: ListTileTitleAlignment.center,
+                      minVerticalPadding: 0,
+                      contentPadding: const EdgeInsets.only(left: 16),
+                      onTap: state.status == IncomeUploadFileStatus.initial
+                          ? () => _pickFile(context)
+                          : null,
+                      title: Center(
+                        child: Row(
+                          children: [
+                            ..._leadingWidgets(context, state.status),
+                            Expanded(
+                              child: _buildTextPanel(context, state),
                             ),
-                          ),
-                      ],
+                            if (state.status == IncomeUploadFileStatus.initial)
+                              const SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Icon(Icons.folder_outlined, size: 24),
+                              )
+                            else
+                              Container(
+                                width: 48,
+                                height: 48,
+                                margin: const EdgeInsets.only(right: 12),
+                                child: IconButton(
+                                  onPressed: () => context
+                                      .read<IncomeUploadFileBloc>()
+                                      .add(const IncomeDeleteFile()),
+                                  icon: const Icon(
+                                    Icons.cancel_outlined,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            extraSmallSpacing,
-            Text(
-              AppLocalizations.of(context).incomeProofOfIncomeHint,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            if (state.errorMessage != null &&
-                state.status == IncomeUploadFileStatus.error)
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  state.errorMessage!,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
+              extraSmallSpacing,
+              Text(
+                AppLocalizations.of(context).incomeProofOfIncomeHint,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: isInvalid ? Theme.of(context).colorScheme.error : null,
                 ),
               ),
-          ],
-        );
-      },
+              if (state.errorMessage != null &&
+                  state.status == IncomeUploadFileStatus.error)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    state.errorMessage!,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  void _onUploadStateChanged(
+    BuildContext context,
+    IncomeUploadFileState state,
+  ) {
+    // Clear error when file upload succeeds
+    if (state.status == IncomeUploadFileStatus.success &&
+        state.fileId != null) {
+      // The error will be cleared when validation passes
+    }
   }
 
   Widget _buildTextPanel(
