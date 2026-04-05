@@ -14,6 +14,7 @@ class HomeIdNumberField extends StatelessWidget {
     return FormyTextField(
       name: AppFormField.idNumber.name,
       label: AppLocalizations.of(context).homeIdNumberLabel,
+      keyboardType: TextInputType.number,
       validator: FormyStringValidator.idNumber(),
       onEditingComplete: () => homeContinue(context),
     );
