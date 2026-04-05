@@ -1,7 +1,25 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
+    "homeTitle": "Get a new smartphone on loan",
+    "homeSubtitle": "Enter you full name and ID number to get started.",
+    "homeFullNameLabel": "Full name",
+    "homeIdNumberLabel": "ID number",
+    "homeAge": "Age",
+    "homeInvalidAge": "You must be between {min} and {max} years old to apply.",
+     "@homeInvalidAge": {
+         "placeholders": {
+           "min": {
+             "description": "Minimum age required to apply for the loan",
+             "type": "int"
+           },
+              "max": {
+                 "description": "Maximum age allowed to apply for the loan",
+                 "type": "int"
+              }
+         }
+       },
+       "incomeTitle": "Monthly income",
+     "incomeSubtitle": "Please enter your monthly income and upload proof of income (such as a payslip, bank statement, or tax certificate) to continue.",
+     "incomeMonthlyIncomeLabel": "Monthly income in rands",
+    "buttonContinue": "Continue"
 }
