@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formy/formy.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yellow_loan_signup_flutter_app/bloc/income_upload_file_bloc.dart';
+import 'package:yellow_loan_signup_flutter_app/app/router/app_router.dart';
+import 'package:yellow_loan_signup_flutter_app/bloc/income_upload_file/income_upload_file_bloc.dart';
 import 'package:yellow_loan_signup_flutter_app/config/app_form_field.dart';
 import 'package:yellow_loan_signup_flutter_app/l10n/l10n.dart';
 
@@ -51,5 +52,5 @@ Future<void> incomeContinue(
   setShowFileUploadError(false);
 
   // Everything valid, navigate to phones
-  await context.push('/phones');
+  await context.push(AppRoute.phones.path);
 }

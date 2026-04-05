@@ -1,7 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yellow_loan_signup_flutter_app/bloc/income_upload_file_bloc.dart';
+import 'package:yellow_loan_signup_flutter_app/bloc/income_upload_file/income_upload_file_bloc.dart';
 import 'package:yellow_loan_signup_flutter_app/l10n/l10n.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_error_icon.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_success_icon.dart';

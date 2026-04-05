@@ -1,6 +1,6 @@
 {
     "@@locale": "en",
-    "homeTitle": "Get a new smartphone on loan",
+    "homeTitle": "Get a loan for a new smartphone",
     "homeSubtitle": "Enter you full name and ID number to get started.",
     "homeFullNameLabel": "Full name",
     "homeIdNumberLabel": "ID number",
@@ -17,12 +17,24 @@
                  "type": "int"
               }
          }
-       },
-       "incomeTitle": "Monthly income",
+       },     "homeApplicationExists": "An application already exists for this ID number",     "incomeTitle": "2. Monthly income",
      "incomeSubtitle": "Please enter your monthly income and upload proof of income (such as a payslip, bank statement, or tax certificate) to continue.",
      "incomeMonthlyIncomeLabel": "Monthly income in rands",
      "incomeProofOfIncomeLabel": "Upload proof of income",
      "incomeProofOfIncomeHint": "Please upload a valid proof of income document (accepted formats: PDF, JPG, PNG).",
      "incomeProofOfIncomeError": "Proof of income is required",
-     "buttonContinue": "Continue"
+     "phonesTitle": "3. Pick your phone",
+     "phonesSubtitle": "Choose the smartphone you want.",
+     "phoneDetailsTitle": "3. Pick your phone",
+     "phoneDetailsSubtitle": "If you are happy with the phone you have selected, click 'Submit' to complete your application or go back to pick a different phone.",
+     "phoneDetailsCashPrice": "Cash price",
+     "phoneDetailsYouPay": "You pay",
+     "phoneDetailsDeposit": "Deposit (up front)",
+     "phoneDetailsDailyPayment": "Daily payment (for one year)",
+     "buttonContinue": "Continue",
+     "buttonSubmit": "Submit",
+     "applicationSuccessTitle": "Application Submitted Successfully!",
+     "applicationSuccessMessage": "Thank you for applying for a smartphone loan. Your application has been received and will be reviewed shortly.",
+     "applicationErrorTitle": "Error",
+     "applicationMissingFieldsError": "Please ensure all required information is complete before submitting."
 }
