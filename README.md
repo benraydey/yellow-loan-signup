@@ -14,8 +14,9 @@ A mobile-first web application that allows customers to apply for a phone-loan p
 6. [Quickstart](#quickstart)
    - [Frontend](#frontend-quickstart)
    - [Supabase (Backend / Storage)](#supabase-quickstart)
-7. [Deployment Notes](#deployment-notes)
-8. [Known Limitations / Demo Notes](#known-limitations--demo-notes)
+7. [Testing on a Real Phone or Android Simulator](#testing-on-a-real-phone-or-android-simulator)
+8. [Deployment Notes](#deployment-notes)
+9. [Known Limitations / Demo Notes](#known-limitations--demo-notes)
 
 ---
 
@@ -169,6 +170,23 @@ cd supabase
 supabase start          # starts local Postgres + Studio
 supabase db reset       # applies all migrations
 ```
+
+---
+
+## Testing on a Real Phone or Android Simulator
+
+> See [`docs/TESTING_ON_DEVICE.md`](docs/TESTING_ON_DEVICE.md) for the full step-by-step guide.
+
+**Quick reference:**
+
+| Goal | Command |
+|------|---------|
+| Serve the web app on your local network | `flutter run --flavor development --target lib/main_development.dart -d web-server --web-hostname 0.0.0.0 --web-port 8000` |
+| Open on a real phone | Navigate to `http://<your-computer-ip>:8000` in the phone's browser |
+| Open in an Android emulator browser | Navigate to `http://10.0.2.2:8000` in the emulator's Chrome |
+| Run as a native Android app on the emulator | `flutter run --flavor development --target lib/main_development.dart -d <emulator-id>` |
+
+Both methods require that you have run `flutter pub get` inside `frontend/yellow_loan_signup_flutter_app/` first.
 
 ---
 
