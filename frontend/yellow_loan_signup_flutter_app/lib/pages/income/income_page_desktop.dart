@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yellow_loan_signup_flutter_app/config/constants.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_continue_button.dart';
+import 'package:yellow_loan_signup_flutter_app/widgets/income_file_upload_input.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_monthly_income_field.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_subtitle.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_title.dart';
@@ -24,6 +25,8 @@ class IncomePageDesktop extends StatelessWidget {
                 IncomeSubtitle(),
                 SizedBox(height: 24),
                 IncomeMonthlyIncomeField(),
+                SizedBox(height: 16),
+                IncomeFileUploadInput(),
                 SizedBox(height: 16),
                 IncomeContinueButton(),
               ],

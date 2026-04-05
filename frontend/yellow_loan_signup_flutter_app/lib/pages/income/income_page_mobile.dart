@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_continue_button.dart';
+import 'package:yellow_loan_signup_flutter_app/widgets/income_file_upload_input.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_monthly_income_field.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_subtitle.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/income_title.dart';
@@ -9,7 +10,7 @@ class IncomePageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
@@ -17,14 +18,16 @@ class IncomePageMobile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 32),
-                const IncomeTitle(),
-                const SizedBox(height: 8),
-                const IncomeSubtitle(),
-                const SizedBox(height: 24),
-                const IncomeMonthlyIncomeField(),
-                const SizedBox(height: 16),
-                const IncomeContinueButton(),
+                SizedBox(height: 32),
+                IncomeTitle(),
+                SizedBox(height: 8),
+                IncomeSubtitle(),
+                SizedBox(height: 24),
+                IncomeMonthlyIncomeField(),
+                SizedBox(height: 16),
+                IncomeFileUploadInput(),
+                SizedBox(height: 16),
+                IncomeContinueButton(),
               ],
             ),
           ),

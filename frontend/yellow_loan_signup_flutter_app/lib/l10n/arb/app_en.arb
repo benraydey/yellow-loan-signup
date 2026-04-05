@@ -21,5 +21,8 @@
        "incomeTitle": "Monthly income",
      "incomeSubtitle": "Please enter your monthly income and upload proof of income (such as a payslip, bank statement, or tax certificate) to continue.",
      "incomeMonthlyIncomeLabel": "Monthly income in rands",
+     "incomeProofOfIncomeLabel": "Upload proof of income",
+     "incomeProofOfIncomeHint": "Please upload a valid proof of income document (accepted formats: PDF, JPG, PNG).",
+     "incomeProofOfIncomeError": "Invalid document type (accepted formats: PDF, JPG, PNG).",
     "buttonContinue": "Continue"
 }
