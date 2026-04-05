@@ -43,16 +43,6 @@ class SubmitApplicationButton extends StatelessWidget {
             );
           }
         } else if (state.status == SubmitApplicationStatus.success) {
-          // Reset all blocs and form fields
-          context.read<SubmitApplicationBloc>().add(
-            const ResetSubmitApplication(),
-          );
-          context.read<IncomeUploadFileBloc>().add(
-            const IncomeResetUploadFile(),
-          );
-          context.read<SelectedPhoneCubit>().clearSelection();
-          Formy.of(context).reset();
-
           await context.push(AppRoute.applicationSuccess.path);
         }
       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:yellow_loan_signup_flutter_app/util/is_mobile.dart';
 import 'package:yellow_loan_signup_flutter_app/widgets/default_loading_indicator.dart';
 
 class AppPrimaryButton extends StatelessWidget {
@@ -77,6 +78,7 @@ class AppPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final finalHeight = maxHeight ?? (isMobile(context) ? 50 : defaultHeight);
     var backgroundColorResolved = Color(0xFFDEDFE1);
 
     if (!disabled) {
@@ -104,7 +106,7 @@ class AppPrimaryButton extends StatelessWidget {
                             ? () {}
                             : onPressed,
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(width, height),
+                          minimumSize: Size(width, finalHeight),
                           backgroundColor: backgroundColorResolved,
                           foregroundColor: Theme.of(
                             context,
@@ -118,7 +120,7 @@ class AppPrimaryButton extends StatelessWidget {
                     ),
                   ),
                 SizedBox(
-                  height: maxHeight,
+                  height: finalHeight,
                   child: ElevatedButton(
                     onPressed: disabled
                         ? null
@@ -126,7 +128,7 @@ class AppPrimaryButton extends StatelessWidget {
                         ? () {}
                         : onPressed,
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(width, height),
+                      minimumSize: Size(width, finalHeight),
                       backgroundColor: Colors.transparent,
                       foregroundColor: Theme.of(
                         context,
@@ -159,7 +161,7 @@ class AppPrimaryButton extends StatelessWidget {
               ],
             )
           : SizedBox(
-              height: maxHeight,
+              height: finalHeight,
               child: ElevatedButton(
                 onPressed: disabled
                     ? null
@@ -167,7 +169,7 @@ class AppPrimaryButton extends StatelessWidget {
                     ? () {}
                     : onPressed,
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(width, height),
+                  minimumSize: Size(width, finalHeight),
                   backgroundColor: backgroundColorResolved,
                   elevation: elevation,
                   foregroundColor: Theme.of(
