@@ -16,7 +16,8 @@ A mobile-first web application that allows customers to apply for a phone-loan p
    - [Supabase (Backend / Storage)](#supabase-quickstart)
 7. [Testing on a Real Phone or Android Simulator](#testing-on-a-real-phone-or-android-simulator)
 8. [Deployment Notes](#deployment-notes)
-9. [Known Limitations / Demo Notes](#known-limitations--demo-notes)
+9. [CI / CD — Automated Deployment](#ci--cd--automated-deployment)
+10. [Known Limitations / Demo Notes](#known-limitations--demo-notes)
 
 ---
 
@@ -202,6 +203,29 @@ Steps:
 2. Deploy the `build/web/` output to your chosen static host.
 3. Ensure the Supabase project URL and anon key are injected at build time.
 4. Confirm CORS settings in Supabase allow your deployed domain.
+
+---
+
+## CI / CD — Automated Deployment
+
+Every push to `main` (i.e. after a pull request is merged) automatically builds and deploys the Flutter web app to Firebase Hosting via the workflow defined in [`.github/workflows/firebase-hosting.yml`](.github/workflows/firebase-hosting.yml).
+
+### How it works
+
+1. GitHub Actions checks out the repository and installs the Flutter SDK.
+2. `flutter pub get` fetches all dependencies.
+3. `flutter build web --release` produces the production web build in `frontend/yellow_loan_signup_flutter_app/build/web/`.
+4. The [FirebaseExtended/action-hosting-deploy](https://github.com/FirebaseExtended/action-hosting-deploy) action deploys the build to Firebase Hosting (project `yellow-loan-test-2026`).
+
+### Required secret
+
+Add the following secret to the repository (**Settings → Secrets and variables → Actions**):
+
+| Secret name | Value |
+|---|---|
+| `FIREBASE_SERVICE_ACCOUNT` | JSON key of a Firebase / GCP service account that has the **Firebase Hosting Admin** role |
+
+Generate the key in the [Google Cloud Console](https://console.cloud.google.com/) (IAM → Service Accounts → your account → Keys → Add Key → JSON) and paste the entire JSON content as the secret value.
 
 ---
 
