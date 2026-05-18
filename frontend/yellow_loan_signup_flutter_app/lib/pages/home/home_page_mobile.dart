@@ -28,7 +28,7 @@ class HomePageMobile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 8),
                       const HomeTitle(),
                       const SizedBox(height: 8),
                       const HomeSubtitle(),

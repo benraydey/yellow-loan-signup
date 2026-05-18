@@ -20,7 +20,7 @@ class HomePageDesktop extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 32),
+            const SizedBox(height: 64),
             const HomeTitle(),
             const SizedBox(height: 8),
             const HomeSubtitle(),
